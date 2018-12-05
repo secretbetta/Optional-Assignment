@@ -108,6 +108,7 @@ public class GraphAdjMatrix implements Graph {
 	public int createSpanningTree() {
 		ArrayList<Edge> tempEdges = new ArrayList<Edge>(); 
 		DisjointSet nodes = new DisjointSet(this.vertices + 1);
+		int totalweight = 0;
 		
 		for (Edge curr : this.edges) {
 			if (tempEdges.size() >= this.vertices - 1) {
@@ -118,14 +119,9 @@ public class GraphAdjMatrix implements Graph {
 			int root2 = nodes.find(curr.dest);
 			
 			if (root1 != root2) {
-				tempEdges.add(curr);
+				totalweight += curr.weight;
 				nodes.union(root1, root2);
 			}
-		}
-
-		int totalweight = 0;
-		for(Edge edge: tempEdges){
-			totalweight += edge.weight;
 		}
 		
 		return totalweight;
